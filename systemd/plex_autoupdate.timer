@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Plex Auto Update Hourly
+
+[Timer]
+OnBootSec=5m
+OnUnitActiveSec=1h
+Unit=plex_autoupdate.service
+
+[Install]
+WantedBy=timers.target

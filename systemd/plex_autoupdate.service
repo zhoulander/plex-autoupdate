@@ -1,0 +1,7 @@
+[Unit]
+Description=Plex Auto Update Service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/path/to/plex_autoupdate.sh
