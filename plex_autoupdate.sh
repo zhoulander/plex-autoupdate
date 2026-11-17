@@ -85,6 +85,9 @@ Command: $command"
 }
 
 cleanup() {
+    # Don't let cleanup trigger the main ERR handler.
+    trap - ERR
+
     if (( SERVICE_NEEDS_START )); then
         log "Attempting to restart Plex during cleanup."
 
@@ -96,7 +99,12 @@ cleanup() {
         fi
     fi
 
-    [[ -n "$TMP_DIR" && -d "$TMP_DIR" ]] && rm -rf -- "$TMP_DIR"
+    if [[ -n "$TMP_DIR" && -d "$TMP_DIR" ]]; then
+        rm -rf -- "$TMP_DIR" || \
+            log "WARNING: Could not remove temporary directory."
+    fi
+
+    return 0
 }
 
 trap 'on_error $? $LINENO "$BASH_COMMAND"' ERR
