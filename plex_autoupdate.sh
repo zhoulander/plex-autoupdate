@@ -209,6 +209,7 @@ log "UPDATE DETECTED: $INST -> $LAT"
 # ==========================================
 
 if ! curl -fsS --connect-timeout 5 --max-time 15 \
+    -H "Accept: application/json" \
     "$PLEX_URL/status/sessions?X-Plex-Token=$PLEX_TOKEN" \
     -o "$TMP_DIR/sessions.json"; then
 
